@@ -5,7 +5,8 @@ package com.blckly.order.service.api.type;
  */
 public enum OrderLineStatus {
     PENDING,
-    PICKUP,
+    BUILDING,
+    IN_PROCESS,
     DELIVERED,
     CANCELLED
 }
