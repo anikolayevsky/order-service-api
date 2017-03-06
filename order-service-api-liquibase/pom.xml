@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.blckly</groupId>
+        <artifactId>order-service-api</artifactId>
+        <version>1.0</version>
+        <relativePath>..</relativePath>
+    </parent>
+
+    <artifactId>order-service-api-liquibase</artifactId>
+    <packaging>jar</packaging>
+
+    <name>Order Service API :: Liquibase</name>
+
+    <properties>
+        <!-- DEPENDENCIES -->
+        <!-- PLUGINS -->
+        <!-- LIQUIBASE DEFAULTS -->
+        <liquibase.includeTestOutputDirectory>false</liquibase.includeTestOutputDirectory>
+        <liquibase.promptOnNonLocalDatabase>false</liquibase.promptOnNonLocalDatabase>
+        <liquibase.verbose>true</liquibase.verbose>
+        <!--PROPERTIES-->
+        <liquibase.driver>org.postgresql.Driver</liquibase.driver>
+        <liquibase.clearCheckSums>false</liquibase.clearCheckSums>
+        <liquibase.contexts>default</liquibase.contexts>
+        <liquibase.changeLogFile>com/blckly/db/order/db.changelog.xml</liquibase.changeLogFile>
+        <liquibase-target.username>blckly</liquibase-target.username>
+        <liquibase-target.password>blcklypw</liquibase-target.password>
+        <liquibase-target.url>jdbc:postgresql://localhost:5432/blckly?zeroDateTimeBehavior=convertToNull</liquibase-target.url>
+        <liquibase-defaultSchemaName>order</liquibase-defaultSchemaName>
+        <liquibase.changeSetAuthor>(generated)</liquibase.changeSetAuthor>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.liquibase</groupId>
+                    <artifactId>liquibase-maven-plugin</artifactId>
+                    <version>${liquibase.version}</version>
+                    <configuration>
+                        <verbose>${liquibase.verbose}</verbose>
+                        <promptOnNonLocalDatabase>${liquibase.promptOnNonLocalDatabase}</promptOnNonLocalDatabase>
+                        <includeTestOutputDirectory>${liquibase.includeTestOutputDirectory}</includeTestOutputDirectory>
+                    </configuration>
+                    <inherited>true</inherited>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.liquibase</groupId>
+                            <artifactId>liquibase-core</artifactId>
+                            <version>${liquibase.version}</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <configuration>
+                    <changeLogFile>${liquibase.changeLogFile}</changeLogFile>
+                    <clearCheckSums>${liquibase.clearCheckSums}</clearCheckSums>
+                    <contexts>${liquibase.contexts}</contexts>
+                    <changeSetAuthor>${liquibase.changeSetAuthor}</changeSetAuthor>
+
+                    <!-- Target Database Params -->
+                    <driver>${liquibase.driver}</driver>
+                    <username>${liquibase-target.username}</username>
+                    <password>${liquibase-target.password}</password>
+                    <url>${liquibase-target.url}</url>
+                    <defaultSchemaName>${liquibase-defaultSchemaName}</defaultSchemaName>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

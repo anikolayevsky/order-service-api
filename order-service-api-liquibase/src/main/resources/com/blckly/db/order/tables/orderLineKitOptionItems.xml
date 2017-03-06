@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="alex" id="createOrderLineKitOptionItemsTable">
+        <preConditions>
+            <not><tableExists tableName="b_order_line_kit_option_items" schemaName="b_order"/></not>
+        </preConditions>
+        <createTable tableName="b_order_line_kit_option_items" schemaName="b_order">
+            <column name="id" type="serial">
+                <constraints primaryKey="true"/>
+            </column>
+
+            <column name="order_line_kit_option_id" type="int"/>
+            <column name="name" type="varchar(255)"/>
+            <column name="description" type="text"/>
+            <column name="base_fee" type="float"/>
+            <column name="created" type="timestamp" defaultValueComputed="current_timestamp" />
+            <column name="lastmodified" type="timestamp" defaultValueComputed="current_timestamp" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alex" id="addFkConstraint">
+        <preConditions>
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="orderlinekitoptionitemsfk" foreignKeyTableName="b_order_line_kit_option_items"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint
+                baseTableName="b_order_line_kit_option_items"
+                baseColumnNames="order_line_kit_option_id"
+                constraintName="b_order_line_kit_option"
+                onDelete="CASCADE"
+                referencedTableName="b_order_line_kit_option"
+                referencedColumnNames="id"
+                referencedTableSchemaName="b_order" />
+    </changeSet>
+</databaseChangeLog>

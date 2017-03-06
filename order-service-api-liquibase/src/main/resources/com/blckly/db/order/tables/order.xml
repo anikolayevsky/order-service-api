@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="alex" id="createOrderTable">
+        <preConditions>
+            <not><tableExists tableName="b_order" schemaName="b_order"/></not>
+        </preConditions>
+        <createTable tableName="b_order" schemaName="b_order">
+            <column name="id" type="serial">
+                <constraints primaryKey="true"/>
+            </column>
+
+            <column name="invoice_id" type="varchar(255)"></column>
+            <column name="status" type="varchar(255)"/>
+            <column name="type" type="varchar(255)"/>
+            <column name="price" type="float"/>
+
+            <column name="requester_id" type="int"/>
+            <column name="billing_first_name" type="varchar(255)"/>
+            <column name="billing_last_name" type="varchar(255)"/>
+            <column name="billing_email" type="varchar(255)"/>
+            <column name="billing_phone" type="varchar(60)"/>
+            <column name="billing_address_line_1" type="varchar(255)"/>
+            <column name="billing_address_line_2" type="varchar(255)"/>
+            <column name="billing_city" type="varchar(255)"/>
+            <column name="billing_state" type="varchar(255)"/>
+            <column name="billing_zip" type="varchar(255)"/>
+            <column name="billing_country" type="varchar(255)"/>
+            <column name="billing_latitude" type="decimal"/>
+            <column name="billing_longitude" type="decimal"/>
+
+            <column name="created" type="timestamp" defaultValueComputed="current_timestamp" />
+            <column name="lastmodified" type="timestamp" defaultValueComputed="current_timestamp" />
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
